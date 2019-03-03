@@ -1,3 +1,4 @@
+/*
 package com.example.encrypt_sms;
 
 import android.content.Context;
@@ -83,3 +84,4 @@ public class Network {
 
 
     }
+*/
