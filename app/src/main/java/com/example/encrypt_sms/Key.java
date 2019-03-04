@@ -10,6 +10,13 @@ public class Key {
 
     private String Name;
 
+    public String getName(){
+        return Name;
+    }
+    public void setName(String n){
+        Name=n;
+    }
+
     public Key(){
 
     }
