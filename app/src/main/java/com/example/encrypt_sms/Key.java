@@ -8,6 +8,8 @@ public class Key {
     private BigInteger n;
     private BigInteger d;
 
+    private String Name;
+
     public Key(){
 
     }
