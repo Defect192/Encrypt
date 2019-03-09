@@ -7,11 +7,14 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.math.BigInteger;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView cypherText;
     private Button takeAction;
     private TextInputEditText typed;
+
+    private Encryptor myEncryptor;
+    private BigInteger EncodedMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +85,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Encrypt(){
-        //InitView();
+        myEncryptor= new Encryptor();
         if(typed.getText().length()==0) {
             cypherText.setText("Please Enter a Message");
             clearText.setText("");
-        }else{
-            cypherText.setText(typed.getText());
+        }else {
+            String text= typed.getText().toString();
+            EncodedMessage= myEncryptor.Encode(text,myEncryptor.getKeySet().getPrivateKey());
+            cypherText.setText(EncodedMessage.toString());
         }
         takeAction.setText("Decrypt");
     }
@@ -93,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
         if(cypherText.getText().equals("Please Enter a Message")){
             clearText.setText("Nothing was encrypted!!!");
         }else{
-            clearText.setText(cypherText.getText());
+            String Decoded= myEncryptor.Decode(EncodedMessage,myEncryptor.getKeySet().getPublicKey());
+            clearText.setText(Decoded);
         }
         takeAction.setText("Encrypt");
     }
