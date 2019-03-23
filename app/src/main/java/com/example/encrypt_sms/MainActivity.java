@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.math.BigInteger;
@@ -19,10 +20,10 @@ import java.math.BigInteger;
 public class MainActivity extends AppCompatActivity {
 
     //Global variables
-    private TextView clearText;
-    private TextView cypherText;
+
     private Button takeAction;
     private TextInputEditText typed;
+    private ScrollView messageView;
 
     private Encryptor myEncryptor;
     private BigInteger EncodedMessage;
@@ -33,15 +34,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override
@@ -67,23 +59,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void InitView(){
-        clearText= (TextView)findViewById(R.id.textView);
-        cypherText= (TextView)findViewById(R.id.textView2);
-        takeAction= (Button)findViewById(R.id.button2);
+        takeAction= (Button)findViewById(R.id.send);
         typed= (TextInputEditText)findViewById(R.id.textInputEditText);
+        messageView= (ScrollView)findViewById(R.id.scrollView2);
     }
 
     public void ButtonAction(View view) {
         //Intent startNewActivity= new Intent(this, encrypt.class);
         //startActivity(startNewActivity);
         InitView();
-        if(takeAction.getText().equals("Encrypt")){
-            Encrypt();
-        }else if(takeAction.getText().equals("Decrypt")){
-            Decrypt();
-        }
+
     }
 
+    /*
     public void Encrypt(){
         myEncryptor= new Encryptor();
         if(typed.getText().length()==0) {
@@ -106,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         }
         takeAction.setText("Encrypt");
     }
-
+    */
 
 
 }

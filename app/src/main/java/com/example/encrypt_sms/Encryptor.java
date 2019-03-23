@@ -14,7 +14,7 @@ public class Encryptor {
         return myKeys;
     }
 
-
+    //String -> BigInteger
     public BigInteger Encode(String Message, Key privateKey) {
         BigInteger N= privateKey.getN();
         BigInteger D= privateKey.getDorE();
@@ -24,6 +24,7 @@ public class Encryptor {
         return EncodedMessage;
     }
 
+    //BigInteger -> String
     public String Decode(BigInteger Encoded, Key publicKey) {
         BigInteger N= publicKey.getN();
         BigInteger E= publicKey.getDorE();
