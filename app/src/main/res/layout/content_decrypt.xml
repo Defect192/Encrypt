@@ -11,33 +11,48 @@
     <LinearLayout
         android:layout_width="395dp"
         android:layout_height="601dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <EditText
-            android:id="@+id/enterKey"
+            android:id="@+id/EnterKey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/key_text"
             android:inputType="text" />
 
+        <EditText
+            android:id="@+id/PasteMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/paste_text"
+            android:inputType="textPersonName" />
+
         <Button
-            android:id="@+id/decrypt"
+            android:id="@+id/DecryptButton"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:text="@string/button2_text"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
         <TextView
-            android:id="@+id/message"
+            android:id="@+id/Message"
             android:layout_width="match_parent"
             android:layout_height="379dp"
             android:text="@string/message_display" />
+
+        <Button
+            android:id="@+id/back2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/back_button" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
