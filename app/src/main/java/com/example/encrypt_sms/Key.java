@@ -32,6 +32,9 @@ public class Key{
     public String getName(){
         return Name;
     }
+    public void setName(String n){
+        Name=n;
+    }
 
     public BigInteger getDorE(){
         return DorE;
