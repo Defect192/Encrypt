@@ -26,6 +26,11 @@ public class KeySet {
         Private= new Key(D,N,"Private Key");
     }
 
+    public KeySet(Key pri, Key pub){
+        Private=pri;
+        Public=pub;
+    }
+
     public Key getPrivateKey(){
         return Private;
     }
@@ -33,6 +38,15 @@ public class KeySet {
     public Key getPublicKey(){
         return Public;
     }
+
+    public void setPublicKey(Key k){
+        Public= k;
+    }
+
+    public void setPrivateKey(Key k){
+        Private= k;
+    }
+
 
 
     public void clearKeys() {

@@ -10,11 +10,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.Serializable;
+
 public class StartUp extends AppCompatActivity {
 
     private Button GoToEncrypt;
     private Button GoToDecrypt;
     private Button GoToKeys;
+
+    private Encryptor myEncryptor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +35,8 @@ public class StartUp extends AppCompatActivity {
         GoToEncrypt= (Button)findViewById(R.id.EncryptView);
         GoToEncrypt.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                startActivity(new Intent(StartUp.this, EncryptActivity.class));            }
+                startActivity(new Intent(StartUp.this, EncryptActivity.class));
+            }
         });
 
 
@@ -48,6 +53,8 @@ public class StartUp extends AppCompatActivity {
                 startActivity(new Intent(StartUp.this, KeyActivity.class));
             }
         });
+
+        myEncryptor= new Encryptor(true);
     }
 
 }

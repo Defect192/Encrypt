@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".EncryptActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_encrypt">
 
 
     <Button
@@ -20,7 +20,7 @@
         android:layout_marginRight="20dp"
         android:onClick="ButtonAction"
         android:text="@string/button_text"
-        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
         android:textFontWeight="30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/subject"
@@ -73,5 +73,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/subject" />
+
+    <Button
+        android:id="@+id/back1"
+        android:layout_width="94dp"
+        android:layout_height="62dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/back_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

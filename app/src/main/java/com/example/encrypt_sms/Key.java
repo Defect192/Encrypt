@@ -1,8 +1,11 @@
 package com.example.encrypt_sms;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.math.BigInteger;
 
-public class Key {
+public class Key{
 
     private BigInteger DorE;
     private BigInteger N;
@@ -20,6 +23,12 @@ public class Key {
         Name=label;
     }
 
+    public Key(String de, String n, String label){
+        DorE= new BigInteger(de);
+        N= new BigInteger(n);
+        Name=label;
+    }
+
     public String getName(){
         return Name;
     }
@@ -31,10 +40,4 @@ public class Key {
     public BigInteger getN(){
         return N;
     }
-
-
-
-
-
-
 }
