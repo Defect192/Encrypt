@@ -55,7 +55,7 @@ public class DecryptActivity extends AppCompatActivity {
 
     public void decryptMessage(View v){
         if(EnterMessage.getText().length()!=0){
-            String Decoded= decryptMachine.Decode(EnterMessage.getText().toString(),decryptMachine.getMyKeys().getPublicKey());
+            String Decoded= decryptMachine.Decode(new BigInteger(EnterMessage.getText().toString().getBytes()),decryptMachine.getMyKeys().getPublicKey());
             DisplayMessage.setText(Decoded);
         }
 

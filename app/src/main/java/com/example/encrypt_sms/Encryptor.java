@@ -5,41 +5,74 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Encryptor{
 
     private KeySet myKeys; //my public and private keys
-    private Key[] friendKeys; //friends' public keys
+    private ArrayList<Key> friendKeys; //friends' public keys
 
     public Encryptor(boolean createKey){ //true: create keys, false: get keys from file
+        friendKeys= new ArrayList<Key>();
         myKeys = new KeySet();
         if(createKey) {
             Dump();
         }else try {
             File root = new File(Environment.getExternalStorageDirectory(),"EncryptFolder");
-            File myKeySafe= new File(root,"myKeySafe.txt");
-            BufferedReader Reader = new BufferedReader(new FileReader(myKeySafe));
-            String line = Reader.readLine();
-            while (line != null) {
-                String[] keyParts = line.split(",");
-                //DE, N, Name
-                Key k = new Key(new BigInteger(keyParts[0]), new BigInteger(keyParts[1]), keyParts[2]);
-                if (keyParts[2].equals("Private")) {
-                    myKeys.setPrivateKey(k);
-                } else {
-                    myKeys.setPublicKey(k);
-                }
-                line = Reader.readLine();
+            File N= new File(root,"N.txt");
+            File D= new File(root,"D.txt");
+            File E= new File(root,"E.txt");
+
+            Scanner input = new Scanner(N);
+            String num= "";
+            while(input.hasNextLine()) {
+                num+=input.next();
             }
-            Log.i("File Reading","Success!!");
+            BigInteger n= new BigInteger(num);
+
+            Scanner input2 = new Scanner(D);
+            String num2= "";
+            while(input2.hasNextLine()) {
+                num2+=input2.next();
+            }
+            BigInteger d= new BigInteger(num2);
+
+            Scanner input3 = new Scanner(E);
+            String num3= "";
+            while(input3.hasNextLine()) {
+                num3+=input3.next();
+            }
+            BigInteger e= new BigInteger(num3);
+
+
+            Key pri= new Key(d,n,"Private"); //D, N, Name
+            Key pub= new Key(e,n,"Public");  //E, N, Name
+
+            myKeys= new KeySet(pri,pub);  //private, public
+
         } catch (IOException e) {
             Log.i("File Reading", "File Reading Failed");
             e.printStackTrace();
         }
+    }
+
+    public void addKey(Key k){
+        friendKeys.add(k);
+    }
+
+    public void deleteKey(Key k){
+        friendKeys.remove(k);
+    }
+
+    public ArrayList<Key> getKeyChain(){
+        return friendKeys;
     }
 
     public KeySet getMyKeys(){
@@ -72,51 +105,31 @@ public class Encryptor{
         return DecodedString;
     }
 
-    //String -> String
-    public String Decode(String Encoded, Key publicKey) {
-        BigInteger N= publicKey.getN();
-        BigInteger E= publicKey.getDorE();
-        BigInteger Mess= new BigInteger(Encoded.getBytes());
-        BigInteger DecodedMessage = ModularExponent(Mess,E,N);
-        byte[] decodedByte= DecodedMessage.toByteArray();
-        String DecodedString= new String(decodedByte);
-        return DecodedString;
-    }
-
-
 
     public void Dump(){ //DE, N, Name
         File root = new File(Environment.getExternalStorageDirectory(),"EncryptFolder");
         if(!root.exists()){
             root.mkdir();
         }
-        File myKeySafe= new File(root,"myKeySafe.txt");
+        File D= new File(root,"D.txt");  //Comes from private key
+        File N= new File(root,"N.txt");  //Comes from both keys
+        File E= new File(root,"E.txt");  //Comes from public key
         Key pri= myKeys.getPrivateKey();
         Key pub= myKeys.getPublicKey();
         try {
 
-            /*
-            FileWriter writer= new FileWriter(myKeySafe);
-            writer.append(new String(pri.getDorE().toByteArray()));
-            writer.append(new String(pri.getN().toByteArray()));
-            writer.append(pri.getName());
-            writer.append("\n");
-            writer.append(new String(pub.getDorE().toByteArray())+","+new String(pub.getN().toByteArray())+","+pub.getName());
-            writer.flush();
-            writer.close();
-            */
+            FileWriter writeD= new FileWriter(D);
+            writeD.append(pri.getDorE().toString());
+            writeD.close();
 
+            FileWriter writeE= new FileWriter(E);
+            writeE.append(pub.getDorE().toString());
+            writeE.close();
 
-            FileWriter writer= new FileWriter(myKeySafe);
-            writer.append(pri.getDorE()+","+pri.getN()+","+pri.getName());
-            writer.append("\n");
-            writer.append(pub.getDorE()+","+pub.getN()+","+pub.getName());
-            writer.flush();
-            writer.close();
+            FileWriter writeN= new FileWriter(N);
+            writeN.append(pri.getN().toString());
+            writeN.close();
 
-
-            Log.i("File Creation","Success!!");
-            Log.i("path",myKeySafe.getAbsolutePath());
         } catch (IOException e) {
             Log.i("File Creation", "Failed");
             e.printStackTrace();
