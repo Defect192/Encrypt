@@ -137,6 +137,7 @@ public class Encryptor{
 
     }
 
+    // a^b mod n
     private BigInteger ModularExponent(BigInteger a, BigInteger b, BigInteger n) {
         int c=0;
         BigInteger d= new BigInteger("1");
